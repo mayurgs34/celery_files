@@ -1,0 +1,16 @@
+Flask==3.0.0
+numpy
+pandas
+boto3
+PyYAML
+requests
+flask-marshmallow
+marshmallow
+PyJWT
+PyYAML
+python-dotenv
+python-magic==0.4.15
+pylibmagic==0.2.2
+flask-cors
+gunicorn==20.0.2
+celery

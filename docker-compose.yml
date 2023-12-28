@@ -1,0 +1,34 @@
+services:
+  rabbit:
+    hostname: rabbit
+    image: rabbitmq:latest  
+    environment:
+      - RABBITMQ_DEFAULT_USER=guest
+      - RABBITMQ_DEFAULT_PASS=guest
+    ports:
+      - "5672:5672"
+      - "15672:15672"
+  web:
+    build:
+      context: .
+      dockerfile: ./Dockerfile
+    environment:
+      FLASK_APP: run
+      FLASK_DEBUG: 1
+    volumes:
+      - .:/app
+    depends_on:
+      - rabbit        
+    # command: flask run -h 0.0.0.0
+    # ports:
+    #   - 8080:8080
+  celery:
+    build:
+        context: .
+    environment:
+      FLASK_APP: run
+    volumes:
+      - .:/app
+    command: celery -A app.celery worker
+    depends_on:
+      - rabbit        
